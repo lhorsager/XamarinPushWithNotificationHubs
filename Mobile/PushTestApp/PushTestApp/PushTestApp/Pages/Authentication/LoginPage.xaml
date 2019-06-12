@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PushTestApp.Pages.Authentication.LoginPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true" 
+             BackgroundColor="#00a7f7">
+    <ContentPage.Content>
+        <Grid >
+            <ScrollView
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+                <Grid
+                    RowSpacing="60" 
+                    x:Name="rootView"
+                    VerticalOptions="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="MNEM Push Notifications" HorizontalOptions="Center" FontSize="Large" TextColor="White" Grid.Row="0"/>
+
+                    <Frame Grid.Row="1" HasShadow="True" BackgroundColor="#11b0ff" VerticalOptions="Center" HorizontalOptions="Center" >
+                        <Grid
+                        RowSpacing="20"
+                        WidthRequest="360"
+                        VerticalOptions="Center"
+                        
+                        >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+
+
+                            <!--Label to display the description of this page-->
+                            <Label
+                        Grid.Row="0" 
+                            HeightRequest="40"
+                        LineBreakMode="WordWrap" 
+                        Text="Enter your credentials to log in"
+                        TextColor="White"
+                            FontSize="Medium"
+                        HorizontalTextAlignment="Start"/>
+
+                            <Entry Grid.Row="2" TextColor="White" Placeholder="Email Address"/>
+                            <Entry Grid.Row="3" TextColor="White" Placeholder="Password" IsPassword="True"/>
+
+                            <Button Grid.Row="4"
+                                    Text="LOGIN" 
+                                    Command="{Binding LoginCommand}" 
+                                    BackgroundColor="#ff5606"
+                                    TextColor="White"
+                                    FontAttributes="Bold" />
+
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

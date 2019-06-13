@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="PushNotifications\" />
   </ItemGroup>
 
   <ItemGroup>

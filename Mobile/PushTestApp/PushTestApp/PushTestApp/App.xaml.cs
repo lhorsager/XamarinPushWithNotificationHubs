@@ -1,13 +1,33 @@
 ﻿using FreshMvvm;
 using PushTestApp.PageModels.Authentication;
 using Xamarin.Forms;
+using PushTestApp.PushNotifications;
+using PushTestApp.Interfaces;
 
 namespace PushTestApp
 {
 	public partial class App : Application
 	{
-		public App()
+		//Used for iOS only to delay the push notification request
+		private static IRegisterPushNotifications _registerPushNotifications;
+		public static IRegisterPushNotifications RegisterPushNotifications
 		{
+			get
+			{
+				return _registerPushNotifications;
+			}
+			set
+			{
+				_registerPushNotifications = value;
+			}
+		}
+
+		private IMcNotificationManager _mcNotificationManager;
+
+		public App(IMcNotificationManager notificationManager)
+		{
+			_mcNotificationManager = notificationManager;
+
 			InitializeComponent();
 
 			var loginpage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();

@@ -69,6 +69,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NotificationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -126,12 +127,19 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Azure.NotificationHubs.iOS-updated">
+      <Version>1.2.5.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\PushTestApp\PushTestApp.csproj">
-      <Project>{57B2735B-EB8D-493C-BA6C-2C54B3044145}</Project>
+      <Project>{596DE7A5-DBC7-47B0-B4CE-53AFE485D512}</Project>
       <Name>PushTestApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\PushApiService\PushTest.Dto\PushTest.Dto.csproj">
+      <Project>{690494C9-B172-4591-9114-D4082D4B0407}</Project>
+      <Name>PushTest.Dto</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

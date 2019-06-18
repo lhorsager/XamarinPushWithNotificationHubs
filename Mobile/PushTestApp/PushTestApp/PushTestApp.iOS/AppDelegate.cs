@@ -77,12 +77,21 @@ namespace PushTestApp.iOS
 
 		public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 		{
-			Hub = new SBNotificationHub("Endpoint=sb://andelinprodhub.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=6BkI1BupxOeTcE02dXlG6h+sIkwJaigGywCdqGyt2Rg=", "andelinprodnotification");
+			Hub = new SBNotificationHub("Endpoint=sb://mnempushtestns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=/leIHaN0+meAt7xHE02+J4uALq13oB1cbrDCcSfSA3k=", "mnempushtest");
 
-			string deviceId = Preferences.Get("DeviceId", null);
-			Guid deviceGuid = new Guid(deviceId);
+            Guid deviceGuid;
+            string strDeviceId = Preferences.Get("DeviceId", "");
+            if (String.IsNullOrEmpty(strDeviceId))
+            {
+                deviceGuid = Guid.NewGuid();
+                Preferences.Set("DeviceId", deviceGuid.ToString());
+            }
+            else
+            {
+                deviceGuid = Guid.Parse(strDeviceId);
+            }
 
-			Hub.UnregisterAllAsync(deviceToken, (error) => {
+            Hub.UnregisterAllAsync(deviceToken, (error) => {
 				if (error != null)
 				{
 					Debug.WriteLine("Error calling Unregister: {0}", error.ToString());
@@ -109,32 +118,32 @@ namespace PushTestApp.iOS
 		{
 			PushMessage pushMessage = new PushMessage();
 
-			if (null != userInfo && userInfo.ContainsKey(new NSString("messageType")))
-			{
-				pushMessage.MessageType = userInfo.ObjectForKey(new NSString("messageType")).ToString();
-			}
+            if (null != userInfo && userInfo.ContainsKey(new NSString("messageType")))
+            {
+                pushMessage.MessageType = userInfo.ObjectForKey(new NSString("messageType")).ToString();
+            }
 
-			if (null != userInfo && userInfo.ContainsKey(new NSString("objectId")))
-			{
-				pushMessage.ObjectId = Guid.Parse(userInfo.ObjectForKey(new NSString("objectId")).ToString());
-			}
+            if (null != userInfo && userInfo.ContainsKey(new NSString("objectId")))
+            {
+                pushMessage.ObjectId = Guid.Parse(userInfo.ObjectForKey(new NSString("objectId")).ToString());
+            }
 
-			if (_finiteTaskSessionId == 0)
-			{
-				_finiteTaskSessionId = UIApplication.SharedApplication.BeginBackgroundTask("LongRunningTask", OnFiniteTaskSessionExpiration);
-			}
+            if (_finiteTaskSessionId == 0)
+            {
+                _finiteTaskSessionId = UIApplication.SharedApplication.BeginBackgroundTask("LongRunningTask", OnFiniteTaskSessionExpiration);
+            }
 
-			await Task.Run(async () =>
-			{
-				IMcNotificationManager mcNotificationManager = FreshMvvm.FreshIOC.Container.Resolve<IMcNotificationManager>();
-				mcNotificationManager.NotificationManager.SendNotificaiton(pushMessage);
+            await Task.Run(async () =>
+            {
+                IMcNotificationManager mcNotificationManager = FreshMvvm.FreshIOC.Container.Resolve<IMcNotificationManager>();
+                mcNotificationManager.NotificationManager.SendNotificaiton(pushMessage);
 
-				await Task.Delay(10000);
-			});
+                await Task.Delay(10000);
+            });
 
-			UIApplication.SharedApplication.EndBackgroundTask(_finiteTaskSessionId);
-			_finiteTaskSessionId = 0;
-		}
+            UIApplication.SharedApplication.EndBackgroundTask(_finiteTaskSessionId);
+            _finiteTaskSessionId = 0;
+        }
 
 		private void OnFiniteTaskSessionExpiration()
 		{

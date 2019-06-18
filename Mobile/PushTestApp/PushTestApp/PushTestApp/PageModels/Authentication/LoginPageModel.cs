@@ -13,6 +13,8 @@ namespace PushTestApp.PageModels.Authentication
 
 		public LoginPageModel(ApiInstance api)
 		{
+            EmailAddress = "john@test.com";
+            Password = "password1";
 			_api = api;
 		}
 

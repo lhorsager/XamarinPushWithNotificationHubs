@@ -68,8 +68,7 @@ namespace PushApiService.Repositories
 					Manufacturer = request.Manufacturer,
 					Model = request.Model,
 					Os = request.Os,
-					OsVersion = request.OsVersion,
-					PushToken = request.PushToken
+					OsVersion = request.OsVersion
 				};
 
 				_db.Devices.Add(_device);
@@ -82,7 +81,6 @@ namespace PushApiService.Repositories
 				_device.Model = request.Model;
 				_device.Os = request.Os;
 				_device.OsVersion = request.OsVersion;
-				_device.PushToken = request.PushToken;
 			}
 			_db.SaveChanges();
 		}
@@ -102,8 +100,7 @@ namespace PushApiService.Repositories
 					Manufacturer = request.Manufacturer,
 					Model = request.Model,
 					Os = request.Os,
-					OsVersion = request.OsVersion,
-					PushToken = request.PushToken
+					OsVersion = request.OsVersion
 				};
 
 				_db.Devices.Add(_device);
@@ -116,7 +113,6 @@ namespace PushApiService.Repositories
 				_device.Model = request.Model;
 				_device.Os = request.Os;
 				_device.OsVersion = request.OsVersion;
-				_device.PushToken = request.PushToken;
 			}
 			_db.SaveChanges();
 		}

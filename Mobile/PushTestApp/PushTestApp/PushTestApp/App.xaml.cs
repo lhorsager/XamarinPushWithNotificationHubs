@@ -51,8 +51,10 @@ namespace PushTestApp
 			_mcNotificationManager.NotificationManager.OnNotification += NotificationManager_OnNotification;
 			_mcNotificationManager.NotificationManager.OnRegisterDevice += NotificationManager_OnRegisterDevice;
 
-            App.RegisterPushNotifications.RegisterForPush();
-
+			if(Device.RuntimePlatform == Device.iOS)
+			{
+				App.RegisterPushNotifications.RegisterForPush();
+			}
 		}
 
 		private void NotificationManager_OnNotification(object sender, NotificationEventArgs e)

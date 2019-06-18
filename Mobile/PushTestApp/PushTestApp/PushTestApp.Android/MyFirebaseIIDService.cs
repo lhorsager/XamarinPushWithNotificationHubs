@@ -25,7 +25,7 @@ namespace PushTestApp.Droid
         void SendRegistrationToServer(string token)
         {
             // Register with Notification Hubs
-            hub = new NotificationHub(Constants.NotificationHubName, Constants.ListenConnectionString, this);
+            hub = new NotificationHub("mnempushtest", "Endpoint=sb://mnempushtestns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=/leIHaN0+meAt7xHE02+J4uALq13oB1cbrDCcSfSA3k=", this);
 
 			string deviceId = Xamarin.Essentials.Preferences.Get(PushTestAppStorageKey.DEVICE_ID, null);
 			Guid deviceGuid = new Guid(deviceId);

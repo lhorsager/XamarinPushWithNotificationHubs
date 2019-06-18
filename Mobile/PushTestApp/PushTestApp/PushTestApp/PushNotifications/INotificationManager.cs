@@ -10,7 +10,5 @@ namespace PushTestApp.PushNotifications
 
         void RegisterDevice(Guid deviceId, string pushToken);
         void SendNotificaiton(object notificationObject);
-
-        //DatabaseService DatabaseService { get; set; }
     }
 }

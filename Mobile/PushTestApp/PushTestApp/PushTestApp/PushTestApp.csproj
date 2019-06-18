@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="FreshMvvm" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>

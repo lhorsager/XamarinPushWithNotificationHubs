@@ -43,36 +43,6 @@ namespace PushTestApp.iOS
 			//Setup so Xamarin.Forms can call into this Class to register for push notifications
 			App.RegisterPushNotifications = this;
 
-			//<Initial Device Id Registration>
-			string deviceId = null;
-			deviceId = Preferences.Get(PushTestAppStorageKey.DEVICE_ID, null);
-
-			if (deviceId == null)
-			{
-				Debug.WriteLine($"AppDelegate.FinishedLaunching() - DeviceId is Null - Most Likely Initial Launch - Create a DeviceId");
-
-				Guid deviceIdGuid = Guid.NewGuid();
-				deviceId = deviceIdGuid.ToString();
-
-				Debug.WriteLine($"AppDelegate.FinishedLaunching() - New DeviceId: { deviceId }");
-
-				//register DeviceId with Xamarin.Essentials
-				Preferences.Set(PushTestAppStorageKey.DEVICE_ID, deviceId);
-
-				Task.Run(async () =>
-				{
-					//register DeviceId with Akavache
-					//await BlobCache.UserAccount.InsertObject<Guid>(AndelinStorageKey.DEVICE_ID, deviceIdGuid);
-				});
-			}
-			else
-			{
-				Debug.WriteLine($"AppDelegate.FinishedLaunching() - DeviceId is not Null - Not Initial Launch - Have a DeviceId");
-
-				Debug.WriteLine($"AppDelegate.FinishedLaunching() - Existing DeviceId: { deviceId }");
-			}
-			//</Initial Device Id Registration>
-
 			LoadApplication(new App(mcNotificationManager));
 
             return base.FinishedLaunching(app, options);
@@ -109,7 +79,7 @@ namespace PushTestApp.iOS
 		{
 			Hub = new SBNotificationHub("Endpoint=sb://andelinprodhub.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=6BkI1BupxOeTcE02dXlG6h+sIkwJaigGywCdqGyt2Rg=", "andelinprodnotification");
 
-			string deviceId = Preferences.Get(PushTestAppStorageKey.DEVICE_ID, null);
+			string deviceId = Preferences.Get("DeviceId", null);
 			Guid deviceGuid = new Guid(deviceId);
 
 			Hub.UnregisterAllAsync(deviceToken, (error) => {

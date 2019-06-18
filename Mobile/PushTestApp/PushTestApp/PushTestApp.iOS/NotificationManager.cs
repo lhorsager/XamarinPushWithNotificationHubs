@@ -25,11 +25,5 @@ namespace PushTestApp.iOS
             NotificationEventArgs args = new NotificationEventArgs(notificationObject);
             OnNotification(this, args);
         }
-
-        //public DatabaseService DatabaseService
-        //{
-        //    get;
-        //    set;
-        //}
     }
 }

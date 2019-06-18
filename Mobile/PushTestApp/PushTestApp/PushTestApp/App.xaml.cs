@@ -46,8 +46,12 @@ namespace PushTestApp
 			freshLoginNavigationContainer.BarBackgroundColor = Color.FromHex("#00a7f7");
 			MainPage = freshLoginNavigationContainer;
 
+            
+
 			_mcNotificationManager.NotificationManager.OnNotification += NotificationManager_OnNotification;
 			_mcNotificationManager.NotificationManager.OnRegisterDevice += NotificationManager_OnRegisterDevice;
+
+            App.RegisterPushNotifications.RegisterForPush();
 
 		}
 

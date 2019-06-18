@@ -54,8 +54,8 @@
                             FontSize="Medium"
                         HorizontalTextAlignment="Start"/>
 
-                            <Entry Grid.Row="2" TextColor="White" Placeholder="Email Address" Text="{Binding EmailAddress}"/>
-                            <Entry Grid.Row="3" TextColor="White" Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+                            <Entry Grid.Row="2" TextColor="Black" Placeholder="Email Address" Text="{Binding EmailAddress}"/>
+                            <Entry Grid.Row="3" TextColor="Black" Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
 
                             <Button Grid.Row="4"
                                     Text="LOGIN" 

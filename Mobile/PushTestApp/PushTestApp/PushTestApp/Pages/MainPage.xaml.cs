@@ -15,6 +15,8 @@ namespace PushTestApp.Pages
 	{
 		public MainPage()
 		{
+			NavigationPage.SetHasNavigationBar(this, false);
+
 			InitializeComponent();
 		}
 	}

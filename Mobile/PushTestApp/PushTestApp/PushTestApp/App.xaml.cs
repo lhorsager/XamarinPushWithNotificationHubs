@@ -10,6 +10,8 @@ using System.Diagnostics;
 using PushApiService.Dto;
 using Xamarin.Essentials;
 using System;
+using PushTestApp.Pages;
+using PushTestApp.PageModels;
 
 namespace PushTestApp
 {
@@ -41,12 +43,21 @@ namespace PushTestApp
 
 			InitializeComponent();
 
-			var loginpage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
-			FreshNavigationContainer freshLoginNavigationContainer = new FreshNavigationContainer(loginpage, "Login");
-			freshLoginNavigationContainer.BarBackgroundColor = Color.FromHex("#00a7f7");
-			MainPage = freshLoginNavigationContainer;
+			string strToken = Preferences.Get("Token", "");
+			if(string.IsNullOrWhiteSpace(strToken))
+			{
+				var loginpage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
+				FreshNavigationContainer freshLoginNavigationContainer = new FreshNavigationContainer(loginpage);
+				freshLoginNavigationContainer.BarBackgroundColor = Color.FromHex("#00a7f7");
+				MainPage = freshLoginNavigationContainer;
+			}
+			else
+			{
+				Page mp = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
+				MainNavigationPage mainNavPage = new MainNavigationPage(mp, "MainPage");
+				MainPage = mainNavPage;
+			}
 
-            
 
 			_mcNotificationManager.NotificationManager.OnNotification += NotificationManager_OnNotification;
 			_mcNotificationManager.NotificationManager.OnRegisterDevice += NotificationManager_OnRegisterDevice;
@@ -66,6 +77,19 @@ namespace PushTestApp
 				Debug.WriteLine($"MessageType: { message.MessageType } ObjectId: { message.ObjectId }");
 
 				//Now we can do something with our new message in forms
+				if(App.Current.MainPage is MainNavigationPage)
+				{
+					MainNavigationPage mainNavigationPage = (MainNavigationPage)App.Current.MainPage;
+
+					if(mainNavigationPage.CurrentPage is MainPage)
+					{
+						MainPage p = (MainPage)mainNavigationPage.CurrentPage;
+						MainPageModel pm = (MainPageModel)p.BindingContext;
+						pm.PopupMessage = message.MessageType;
+
+						pm.IsShowingPopup = true;
+					}
+				}
 			}
 		}
 

@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using PushTestApp.PageModels;
 using PushTestApp.Services;
+using PushTestApp.Pages;
 
 namespace PushTestApp.PageModels.Authentication
 {
@@ -55,8 +56,10 @@ namespace PushTestApp.PageModels.Authentication
 					{
 						await _api.Authenticate(_email, _password);
 
-						var main = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
-						await CoreMethods.PushPageModelWithNewNavigation<MainPageModel>(main, true);
+						Page mainPage = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
+						MainNavigationPage mainNavPage = new MainNavigationPage(mainPage, "MainPage");
+
+						CoreMethods.SwitchOutRootNavigation("MainPage");
 					}
 					catch (System.Exception)
 					{

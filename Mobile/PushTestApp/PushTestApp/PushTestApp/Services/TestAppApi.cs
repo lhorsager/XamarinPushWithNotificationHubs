@@ -272,12 +272,17 @@ namespace PushTestApp.Services
 					string json = await response.Result.Content.ReadAsStringAsync().ConfigureAwait(false);
 					userProfile = await Task.Run(() => JsonConvert.DeserializeObject<UserProfile>(json)).ConfigureAwait(false);
 
-					createAccountAuthResponse = new CreateAccountAuthResponse
+					if(userProfile != null)
 					{
-						IsSuccess = true,
-						ErrorMessage = "",
-						UserProfile = userProfile
-					};
+						Preferences.Set("Token", userProfile.Token.ToString());
+
+						createAccountAuthResponse = new CreateAccountAuthResponse
+						{
+							IsSuccess = true,
+							ErrorMessage = "",
+							UserProfile = userProfile
+						};
+					}
 				}
 				else
 				{

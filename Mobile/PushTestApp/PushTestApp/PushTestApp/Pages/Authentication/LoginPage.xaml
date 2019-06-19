@@ -1,68 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="PushTestApp.Pages.Authentication.LoginPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="PushTestApp.Pages.Authentication.LoginPage"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             ios:Page.UseSafeArea="true" 
-             BackgroundColor="#00a7f7">
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="#00a7f7"
+             mc:Ignorable="d">
     <ContentPage.Content>
-        <Grid >
-            <ScrollView
-                VerticalOptions="Center"
-                HorizontalOptions="Center">
+        <Grid>
+            <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
 
-                <Grid
-                    RowSpacing="60" 
-                    x:Name="rootView"
-                    VerticalOptions="Center">
+                <Grid x:Name="rootView"
+                      RowSpacing="60"
+                      VerticalOptions="Center">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label Text="MNEM Push Notifications" HorizontalOptions="Center" FontSize="Large" TextColor="White" Grid.Row="0"/>
+                    <Label Grid.Row="0"
+                           FontSize="Large"
+                           Text="MNEM Push Notifications"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
 
-                    <Frame Grid.Row="1" HasShadow="True" BackgroundColor="#11b0ff" VerticalOptions="Center" HorizontalOptions="Center" >
-                        <Grid
-                        RowSpacing="20"
-                        WidthRequest="360"
-                        VerticalOptions="Center"
-                        
-                        >
+                    <Frame Grid.Row="1"
+                           BackgroundColor="#11b0ff"
+                           HasShadow="True"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center">
+                        <Grid WidthRequest="360"
+                              RowSpacing="20"
+                              VerticalOptions="Center">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
 
 
-                            <!--Label to display the description of this page-->
-                            <Label
-                        Grid.Row="0" 
-                            HeightRequest="40"
-                        LineBreakMode="WordWrap" 
-                        Text="Enter your credentials to log in"
-                        TextColor="White"
-                            FontSize="Medium"
-                        HorizontalTextAlignment="Start"/>
+                            <!--  Label to display the description of this page  -->
+                            <Label Grid.Row="0"
+                                   HeightRequest="40"
+                                   FontSize="Medium"
+                                   HorizontalTextAlignment="Start"
+                                   LineBreakMode="WordWrap"
+                                   Text="Enter your credentials to log in"
+                                   TextColor="White" />
 
-                            <Entry Grid.Row="2" TextColor="Black" Placeholder="Email Address" Text="{Binding EmailAddress}"/>
-                            <Entry Grid.Row="3" TextColor="Black" Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+                            <Entry Grid.Row="2"
+                                   Placeholder="Email Address"
+                                   Text="{Binding EmailAddress}"
+                                   BackgroundColor="White"
+                                   TextColor="Black" />
+                            <Entry Grid.Row="3"
+                                   IsPassword="True"
+                                   BackgroundColor="White"
+                                   Placeholder="Password"
+                                   Text="{Binding Password}"
+                                   TextColor="Black" />
 
                             <Button Grid.Row="4"
-                                    Text="LOGIN" 
-                                    Command="{Binding LoginCommand}" 
                                     BackgroundColor="#ff5606"
-                                    TextColor="White"
-                                    FontAttributes="Bold" />
+                                    Command="{Binding LoginCommand}"
+                                    FontAttributes="Bold"
+                                    Text="LOGIN"
+                                    TextColor="White" />
 
                         </Grid>
                     </Frame>

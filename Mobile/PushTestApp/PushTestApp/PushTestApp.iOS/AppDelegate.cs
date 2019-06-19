@@ -128,7 +128,8 @@ namespace PushTestApp.iOS
                 pushMessage.ObjectId = Guid.Parse(userInfo.ObjectForKey(new NSString("objectId")).ToString());
             }
 
-            if (_finiteTaskSessionId == 0)
+			#region Background task
+			if (_finiteTaskSessionId == 0)
             {
                 _finiteTaskSessionId = UIApplication.SharedApplication.BeginBackgroundTask("LongRunningTask", OnFiniteTaskSessionExpiration);
             }
@@ -138,12 +139,14 @@ namespace PushTestApp.iOS
                 IMcNotificationManager mcNotificationManager = FreshMvvm.FreshIOC.Container.Resolve<IMcNotificationManager>();
                 mcNotificationManager.NotificationManager.SendNotificaiton(pushMessage);
 
+				//hack to force a delay to allow code execution to complete after sending notification to Xamarin.Forms shared code
                 await Task.Delay(10000);
             });
 
-            UIApplication.SharedApplication.EndBackgroundTask(_finiteTaskSessionId);
-            _finiteTaskSessionId = 0;
-        }
+			UIApplication.SharedApplication.EndBackgroundTask(_finiteTaskSessionId);
+			_finiteTaskSessionId = 0;
+			#endregion Background task
+		}
 
 		private void OnFiniteTaskSessionExpiration()
 		{

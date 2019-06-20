@@ -43,9 +43,12 @@ namespace PushTestApp
 
 			InitializeComponent();
 
+			//Check to see if we have a user Token - if we do the user has already
+			//been logged in and we show the main page otherwise show login page
 			string strToken = Preferences.Get("Token", "");
 			if(string.IsNullOrWhiteSpace(strToken))
 			{
+				//show login
 				var loginpage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
 				FreshNavigationContainer freshLoginNavigationContainer = new FreshNavigationContainer(loginpage);
 				freshLoginNavigationContainer.BarBackgroundColor = Color.FromHex("#00a7f7");
@@ -53,21 +56,24 @@ namespace PushTestApp
 			}
 			else
 			{
+				//show main page
 				Page mp = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
 				MainNavigationPage mainNavPage = new MainNavigationPage(mp, "MainPage");
 				MainPage = mainNavPage;
 			}
 
-
+			//subscribe for notification manager notifications
 			_mcNotificationManager.NotificationManager.OnNotification += NotificationManager_OnNotification;
 			_mcNotificationManager.NotificationManager.OnRegisterDevice += NotificationManager_OnRegisterDevice;
 
 			if(Device.RuntimePlatform == Device.iOS)
 			{
+				//This call could be done anywhere but for now we will ask for permission on initial app startup
 				App.RegisterPushNotifications.RegisterForPush();
 			}
 		}
 
+		#region Handle Receiving Notifications
 		private void NotificationManager_OnNotification(object sender, NotificationEventArgs e)
 		{
 			if (e.NotificationObject is PushMessage)
@@ -87,12 +93,15 @@ namespace PushTestApp
 						MainPageModel pm = (MainPageModel)p.BindingContext;
 						pm.PopupMessage = message.MessageType;
 
+						//show the message type in our popup
 						pm.IsShowingPopup = true;
 					}
 				}
 			}
 		}
+		#endregion Handle Receiving Notifications
 
+		#region Handle Registration of Device for Notifications
 		private void NotificationManager_OnRegisterDevice(object sender, RegisterDeviceEventArgs e)
 		{
 			ApiInstance api = FreshIOC.Container.Resolve<ApiInstance>();
@@ -102,7 +111,9 @@ namespace PushTestApp
 				ServiceResponseBase registerDeviceResponse = await api.RegisterDevice();
 			});
 		}
+		#endregion Handle Registration of Device for Notifications
 
+		#region app lifecycle methods
 		protected override void OnStart()
 		{
 			// Handle when your app starts
@@ -117,5 +128,6 @@ namespace PushTestApp
 		{
 			// Handle when your app resumes
 		}
+		#endregion app lifecycle methods
 	}
 }

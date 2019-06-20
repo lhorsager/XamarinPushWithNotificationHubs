@@ -11,6 +11,7 @@ using UserNotifications;
 using WindowsAzure.Messaging;
 using Xamarin.Essentials;
 using PushApiService.Dto;
+using PushTestApp.Managers;
 
 namespace PushTestApp.iOS
 {

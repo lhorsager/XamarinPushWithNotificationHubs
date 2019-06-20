@@ -30,18 +30,11 @@ namespace PushTestApp.Droid
 
 				//register DeviceId with Xamarin.Essentials
 				Preferences.Set(PushTestAppStorageKey.DEVICE_ID, deviceId);
-
-				Task.Run(async () =>
-				{
-					//register DeviceId with Akavache
-					//await BlobCache.UserAccount.InsertObject<Guid>(PushTestAppStorageKey.DEVICE_ID, deviceIdGuid);
-				});
 			}
 			else
 			{
-				System.Diagnostics.Debug.WriteLine($"MainApplication() - DeviceId is not Null - Not Initial Launch - Have a DeviceId");
-
-				System.Diagnostics.Debug.WriteLine($"MainApplication() - Existing DeviceId: { deviceId }");
+				System.Diagnostics.Debug.WriteLine($"MainActivity() - DeviceId is not Null - Not Initial Launch - Have a DeviceId");
+				System.Diagnostics.Debug.WriteLine($"MainActivity() - Existing DeviceId: { deviceId }");
 			}
 
 			TabLayoutResource = Resource.Layout.Tabbar;
@@ -51,7 +44,7 @@ namespace PushTestApp.Droid
 
 			FreshMvvm.FreshIOC.Container.Register<IMcNotificationManager>(McNotificationManager.Instance);
 			IMcNotificationManager mcNotificationManager = FreshMvvm.FreshIOC.Container.Resolve<IMcNotificationManager>();
-			mcNotificationManager.NotificationManager = new PushTestApp.Droid.NotificationManager();
+			mcNotificationManager.NotificationManager = new PushTestApp.Managers.NotificationManager();
 
 			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

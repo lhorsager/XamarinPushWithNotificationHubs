@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="PushNotifications\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
 
   <ItemGroup>
